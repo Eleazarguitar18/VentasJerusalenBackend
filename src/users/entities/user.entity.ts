@@ -29,7 +29,8 @@ export class User {
   password: string;
   @Column()
   id_persona: number;
-
+  @Column({ default: false })
+  estado: boolean;
   @CreateDateColumn()
   createdAt: Date; // Se llenará automáticamente cuando se cree el registro.
 

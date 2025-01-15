@@ -11,6 +11,11 @@ export class UsersService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
   create(createUserDto: CreateUserDto) {
+    // const user = this.userRepository.findOne({
+    //   where: {
+    //     id: createUserDto.id,
+    //   },
+    // });
     const newUser = this.userRepository.create(createUserDto);
     return this.userRepository.save(newUser);
   }
