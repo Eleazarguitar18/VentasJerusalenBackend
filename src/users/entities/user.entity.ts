@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 /* 
 id
@@ -36,4 +38,8 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date; // Se actualizará automáticamente cada vez que el registro cambie.
+
+  // @OneToOne(() => Profile)
+  // @JoinColumn()
+  // profile: Profile;
 }

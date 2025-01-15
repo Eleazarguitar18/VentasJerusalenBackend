@@ -21,7 +21,11 @@ export class UsersService {
   }
 
   findAll() {
-    return this.userRepository.find();
+    return this.userRepository.find({
+      where: {
+        estado: true,
+      },
+    });
   }
 
   findOne(id: number) {
