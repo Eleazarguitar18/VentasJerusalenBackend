@@ -1,3 +1,4 @@
+import { Persona } from 'src/persona/entities/persona.entity';
 import {
   Entity,
   Column,
@@ -29,8 +30,6 @@ export class User {
   email: string;
   @Column()
   password: string;
-  @Column()
-  id_persona: number;
   @Column({ default: false })
   estado: boolean;
   @CreateDateColumn()
@@ -39,7 +38,7 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date; // Se actualizará automáticamente cada vez que el registro cambie.
 
-  // @OneToOne(() => Profile)
-  // @JoinColumn()
-  // profile: Profile;
+  @OneToOne(() => Persona)
+  @JoinColumn()
+  id_persona: Persona;
 }

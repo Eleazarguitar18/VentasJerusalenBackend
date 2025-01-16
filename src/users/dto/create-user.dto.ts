@@ -1,8 +1,11 @@
+import { CreatePersonaDto } from 'src/persona/dto/create-persona.dto';
+
 export class CreateUserDto {
   id: number;
   usuario: string;
   nombre: string;
   email: string;
   password: string;
-  id_persona: number;
+  estado: boolean;
+  id_persona: CreatePersonaDto;
 }
