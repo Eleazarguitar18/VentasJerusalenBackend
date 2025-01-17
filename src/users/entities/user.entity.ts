@@ -15,14 +15,15 @@ nombre
 email
 password
 creado en
+{
+    unique: true,
+  }
 */
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column({
-    unique: true,
-  })
+  @Column()
   usuario: string;
   @Column()
   nombre: string;

@@ -4,20 +4,25 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import { Persona } from 'src/persona/entities/persona.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Persona) private personaRepository: Repository<Persona>,
   ) {}
-  create(createUserDto: CreateUserDto) {
-    // const user = this.userRepository.findOne({
-    //   where: {
-    //     id: createUserDto.id,
-    //   },
-    // });
+  async create(createUserDto: CreateUserDto) {
+    console.log(createUserDto);
+    const newPersona = this.personaRepository.create(createUserDto);
+    const savePersona = await this.personaRepository.save(newPersona);
+    console.log('nueva personaaaa', savePersona);
+
     const newUser = this.userRepository.create(createUserDto);
-    return this.userRepository.save(newUser);
+    newUser.id_persona = savePersona;
+    const saveUser = await this.userRepository.save(newUser);
+    console.log(saveUser);
+    return saveUser;
   }
 
   findAll() {
