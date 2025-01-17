@@ -23,7 +23,9 @@ creado en
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+  @Column({
+    unique: true,
+  })
   usuario: string;
   @Column()
   nombre: string;
@@ -35,11 +37,9 @@ export class User {
   estado: boolean;
   @CreateDateColumn()
   createdAt: Date; // Se llenará automáticamente cuando se cree el registro.
-
   @UpdateDateColumn()
   updatedAt: Date; // Se actualizará automáticamente cada vez que el registro cambie.
-
   @OneToOne(() => Persona)
-  @JoinColumn()
+  @JoinColumn({ name: 'id_persona' })
   id_persona: Persona;
 }
