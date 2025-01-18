@@ -27,8 +27,8 @@ export class User {
     unique: true,
   })
   usuario: string;
-  @Column()
-  nombre: string;
+  // @Column()
+  // nombre: string;
   @Column()
   email: string;
   @Column()
@@ -41,5 +41,5 @@ export class User {
   updatedAt: Date; // Se actualizará automáticamente cada vez que el registro cambie.
   @OneToOne(() => Persona)
   @JoinColumn({ name: 'id_persona' })
-  id_persona: Persona;
+  persona: Persona;
 }

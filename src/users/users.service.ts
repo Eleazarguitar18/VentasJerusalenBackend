@@ -5,10 +5,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { Persona } from 'src/persona/entities/persona.entity';
+import { ConfigService } from '@nestjs/config';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
   constructor(
+    private readonly configService: ConfigService,
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Persona) private personaRepository: Repository<Persona>,
   ) {}
@@ -18,13 +21,26 @@ export class UsersService {
     const savePersona = await this.personaRepository.save(newPersona);
     console.log('nueva personaaaa', savePersona);
 
+    // has password
+    const password_has = await this.hashPassword(createUserDto.password);
+    createUserDto.password = password_has;
     const newUser = this.userRepository.create(createUserDto);
-    newUser.id_persona = savePersona;
+    newUser.persona = savePersona;
     const saveUser = await this.userRepository.save(newUser);
     console.log(saveUser);
     return saveUser;
   }
-
+  async hashPassword(password: string): Promise<string> {
+    const saltRounds = parseInt(
+      this.configService.get<string>('BCRYPT_SALT_ROUNDS', '10'),
+      10,
+    ); // Convierte a número
+    if (isNaN(saltRounds)) {
+      throw new Error('Invalid salt rounds value');
+    }
+    const salt = await bcrypt.genSalt(saltRounds); // Genera el salt con las rondas configuradas
+    return bcrypt.hash(password, salt); // Retorna la contraseña encriptada
+  }
   findAll() {
     return this.userRepository.find({
       where: {

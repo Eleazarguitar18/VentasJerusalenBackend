@@ -8,22 +8,43 @@ import { UsersModule } from './users/users.module';
 import { PersonaModule } from './persona/persona.module';
 import { ClienteModule } from './cliente/cliente.module';
 import { ProductoModule } from './producto/producto.module';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as Joi from 'joi';
+
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres', // Cambiar a 'postgres' para PostgreSQL
-      host: 'localhost', // Dirección del host
-      port: 5432, // Puerto predeterminado de PostgreSQL
-      username: 'postgres', // Usuario de PostgreSQL
-      password: 'ele21', // Contraseña del usuario
-      database: 'bd_ventas', // Nombre de la base de datos
-      entities: [__dirname + '/**/*.entity{.ts,.js}'], // Aquí van las entidades del proyecto
-      synchronize: true, //Sincronización automática, no usar en producción
+    ConfigModule.forRoot({
+      isGlobal: true, // Hace que las variables de entorno estén disponibles globalmente
+      validationSchema: Joi.object({
+        DB_HOST: Joi.string().required(),
+        DB_PORT: Joi.number().default(5432),
+        DB_USER: Joi.string().required(),
+        DB_PASSWORD: Joi.string().required(),
+        DB_NAME: Joi.string().required(),
+      }),
+    }),
+
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres', // Tipo de base de datos
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_NAME'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'], // Rutas de entidades
+        synchronize:
+          true /* configService.get<boolean>('DB_SYNCHRONIZE', false) */, // Sincronización automática (no en producción)
+      }),
     }),
     UsersModule,
     PersonaModule,
     ClienteModule,
     ProductoModule,
+    AuthModule,
   ],
   controllers: [AppController, DatabaseTestController],
   providers: [AppService, DatabaseTestService],
