@@ -32,7 +32,7 @@ import * as Joi from 'joi';
         type: 'postgres', // Tipo de base de datos
         host: configService.get<string>('DB_HOST'),
         port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
+        username: configService.get<string>('DB_USER'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'], // Rutas de entidades
