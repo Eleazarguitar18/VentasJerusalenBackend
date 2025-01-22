@@ -16,12 +16,8 @@ export class Producto {
   @Column()
   precio: number;
   @Column()
-  categoria: string;
-  @Column()
-  imagen?: number;
-  @Column()
   categoría: string; //(sopa, segundo);
-  @Column()
+  @Column({ default: null })
   id_imagen: string;
 
   @CreateDateColumn()
