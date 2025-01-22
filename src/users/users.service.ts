@@ -46,6 +46,7 @@ export class UsersService {
       where: {
         estado: true,
       },
+      relations: ['persona'],
     });
   }
 
