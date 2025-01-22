@@ -30,7 +30,11 @@ export class PersonaService {
   }
 
   findAll() {
-    return `This action returns all persona`;
+    return this.personaRepository.find({
+      where: {
+        estado: true,
+      },
+    });
   }
 
   findOne(id: number) {
