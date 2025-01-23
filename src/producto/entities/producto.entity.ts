@@ -20,6 +20,9 @@ export class Producto {
   @Column({ default: null })
   id_imagen: string;
 
+  @Column({ default: true })
+  estado: boolean;
+
   @CreateDateColumn()
   createdAt: Date; // Se llenará automáticamente cuando se cree el registro.
 

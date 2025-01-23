@@ -5,4 +5,5 @@ export class CreateProductoDto {
   // imagen?: number;
   categoría: string; //(sopa, segundo);
   id_imagen?: string;
+  estado?: boolean;
 }

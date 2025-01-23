@@ -19,7 +19,7 @@ export class Persona {
   fecha_nacimiento: Date;
   @Column()
   telefono: number;
-  @Column()
+  @Column({ default: true })
   estado: boolean;
   @CreateDateColumn()
   createdAt: Date; // Se llenará automáticamente cuando se cree el registro.
