@@ -36,8 +36,9 @@ import * as Joi from 'joi';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'], // Rutas de entidades
+        schema: configService.get<string>('DB_SCHEMA'),
         synchronize:
-          false /* configService.get<boolean>('DB_SYNCHRONIZE', false) */, // Sincronización automática (no en producción)
+          true /* configService.get<boolean>('DB_SYNCHRONIZE', false) */, // Sincronización automática (no en producción)
         ssl: {
           rejectUnauthorized: false, // Desactiva validación estricta para certificados autofirmados
         },
