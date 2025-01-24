@@ -24,6 +24,9 @@ import * as Joi from 'joi';
         DB_NAME: Joi.string().required(),
       }),
     }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', 'public'), // Esta es la ruta a la carpeta public
+    // }),
 
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
