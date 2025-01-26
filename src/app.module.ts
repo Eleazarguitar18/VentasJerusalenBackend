@@ -42,9 +42,9 @@ import * as Joi from 'joi';
         schema: configService.get<string>('DB_SCHEMA'),
         synchronize:
           true /* configService.get<boolean>('DB_SYNCHRONIZE', false) */, // Sincronización automática (no en producción)
-        ssl: {
-          rejectUnauthorized: false, // Desactiva validación estricta para certificados autofirmados
-        },
+        // ssl: {
+        //   rejectUnauthorized: false, // Desactiva validación estricta para certificados autofirmados
+        // },
       }),
     }),
     UsersModule,

@@ -12,7 +12,7 @@ export class Producto {
   @Column()
   nombre: string;
   @Column()
-  descripción: string;
+  descripcion: string;
   @Column()
   precio: number;
   @Column()

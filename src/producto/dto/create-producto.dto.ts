@@ -1,6 +1,6 @@
 export class CreateProductoDto {
   nombre: string;
-  descripción: string;
+  descripcion: string;
   precio: number;
   // imagen?: number;
   categoría: string; //(sopa, segundo);
