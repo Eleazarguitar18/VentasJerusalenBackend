@@ -65,7 +65,7 @@ export class ProductoService {
   }
 
   update(id: number, updateProductoDto: UpdateProductoDto) {
-    return `This action updates a #${id} producto`;
+    return this.productoRepository.update(id, updateProductoDto);
   }
 
   remove(id: number) {
